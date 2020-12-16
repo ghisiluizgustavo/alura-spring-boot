@@ -1,4 +1,6 @@
-package br.com.alura.forum.models;
+package br.com.alura.forum.controllers.dto;
+
+import br.com.alura.forum.models.Topico;
 
 import java.time.LocalDateTime;
 import java.util.List;
