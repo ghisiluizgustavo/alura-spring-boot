@@ -3,6 +3,7 @@ package br.com.alura.forum.controllers.dto;
 import br.com.alura.forum.models.Resposta;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class RespostaDTO {
 
@@ -10,6 +11,7 @@ public class RespostaDTO {
     private String mensagem;
     private LocalDateTime dataCriacao;
     private String nomeAutor;
+    private List<TopicoDTO> topicos;
 
     public RespostaDTO(Resposta resposta){
         this.id = resposta.getId();
