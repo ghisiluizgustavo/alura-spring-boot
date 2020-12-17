@@ -2,11 +2,15 @@ package br.com.alura.forum.controllers;
 
 import br.com.alura.forum.controllers.dto.DetalhesTopicosDTO;
 import br.com.alura.forum.controllers.dto.TopicoDTO;
+import br.com.alura.forum.controllers.form.AtualizacaoTopicoForm;
 import br.com.alura.forum.controllers.form.TopicoForm;
 import br.com.alura.forum.models.Topico;
 import br.com.alura.forum.repositorys.CursoRepository;
 import br.com.alura.forum.repositorys.TopicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -28,12 +32,16 @@ public class TopicosController {
     private CursoRepository cursoRepository;
 
     @GetMapping()
-    public List<TopicoDTO> lista(String nomeCurso){
+    public Page<TopicoDTO> lista(@RequestParam(required = false) String nomeCurso,
+                                 @RequestParam int pag, @RequestParam int qtd){
+
+        Pageable paginacao = PageRequest.of(pag, qtd);
+
         if(nomeCurso == null){
-            List<Topico> topicos = topicoRepository.findAll();
+            Page<Topico> topicos = topicoRepository.findAll(paginacao);
             return TopicoDTO.converter(topicos);
         } else {
-            List<Topico> topicos = topicoRepository.findByCurso_Nome(nomeCurso);
+            Page<Topico> topicos = topicoRepository.findByCurso_Nome(nomeCurso, paginacao);
             return TopicoDTO.converter(topicos);
         }
     }
@@ -50,11 +58,7 @@ public class TopicosController {
     @GetMapping("/{id}")
     public ResponseEntity<DetalhesTopicosDTO> detalhar(@PathVariable Long id){
         Optional<Topico> topico = topicoRepository.findById(id);
-        if (topico.isPresent()){
-            return ResponseEntity.ok(new DetalhesTopicosDTO(topico.get()));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return topico.map(value -> ResponseEntity.ok(new DetalhesTopicosDTO(value))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
@@ -67,5 +71,12 @@ public class TopicosController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<TopicoDTO> atualiazar(@PathVariable Long id, @RequestBody @Valid AtualizacaoTopicoForm form){
+        Topico topico = form.atualizar(id, topicoRepository);
+        return ResponseEntity.ok(new TopicoDTO(topico));
     }
 }

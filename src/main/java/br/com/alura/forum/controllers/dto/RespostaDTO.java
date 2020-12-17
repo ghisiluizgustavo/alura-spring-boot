@@ -7,11 +7,10 @@ import java.util.List;
 
 public class RespostaDTO {
 
-    private Long id;
-    private String mensagem;
-    private LocalDateTime dataCriacao;
-    private String nomeAutor;
-    private List<TopicoDTO> topicos;
+    private final Long id;
+    private final String mensagem;
+    private final LocalDateTime dataCriacao;
+    private final String nomeAutor;
 
     public RespostaDTO(Resposta resposta){
         this.id = resposta.getId();
