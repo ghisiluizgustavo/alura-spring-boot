@@ -7,6 +7,7 @@ import br.com.alura.forum.controllers.form.TopicoForm;
 import br.com.alura.forum.models.Topico;
 import br.com.alura.forum.repositorys.CursoRepository;
 import br.com.alura.forum.repositorys.TopicoRepository;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -31,6 +31,9 @@ public class TopicosController {
     @Autowired
     private CursoRepository cursoRepository;
 
+    /**
+     * TODO
+     */
     @GetMapping()
     public Page<TopicoDTO> lista(@RequestParam(required = false) String nomeCurso,
                                  @RequestParam int pag, @RequestParam int qtd){
