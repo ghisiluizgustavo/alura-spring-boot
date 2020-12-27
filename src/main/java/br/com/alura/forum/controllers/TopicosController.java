@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -32,21 +34,21 @@ public class TopicosController {
     private CursoRepository cursoRepository;
 
     /**
-     * TODO
+     * Retorna um Pageable
+     * @RequestParam é parametros de URL
+     * O objeto Pageable recebido é {page=0&size=10&sort=id,asc} na URL
      */
     @GetMapping()
     public Page<TopicoDTO> lista(@RequestParam(required = false) String nomeCurso,
-                                 @RequestParam int pag, @RequestParam int qtd){
+                                @PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable paginacao){
 
-        Pageable paginacao = PageRequest.of(pag, qtd);
-
+        Page<Topico> topicos;
         if(nomeCurso == null){
-            Page<Topico> topicos = topicoRepository.findAll(paginacao);
-            return TopicoDTO.converter(topicos);
+            topicos = topicoRepository.findAll(paginacao);
         } else {
-            Page<Topico> topicos = topicoRepository.findByCurso_Nome(nomeCurso, paginacao);
-            return TopicoDTO.converter(topicos);
+            topicos = topicoRepository.findByCurso_Nome(nomeCurso, paginacao);
         }
+        return TopicoDTO.converter(topicos);
     }
 
     @PostMapping()
