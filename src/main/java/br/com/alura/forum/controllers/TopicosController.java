@@ -9,6 +9,7 @@ import br.com.alura.forum.repositorys.CursoRepository;
 import br.com.alura.forum.repositorys.TopicoRepository;
 import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,8 +38,15 @@ public class TopicosController {
      * Retorna um Pageable
      * @RequestParam é parametros de URL
      * O objeto Pageable recebido é {page=0&size=10&sort=id,asc} na URL
+     *
+     * @Cacheable informa ao Spring que é para guardar em cache o resultado da requisição
+     * Para observar o funcinamento do cache é possível olhar o console (onde está rodando o Spring)
+     * pois nele ira mostrar os Select's que o Spring usou para ir no banco
+     *
+     * Ele faz um select a primeira vez q o método é acionado, na segunda ele ja usa o cache
      */
     @GetMapping()
+    @Cacheable(value = "listaDeTopicos")
     public Page<TopicoDTO> lista(@RequestParam(required = false) String nomeCurso,
                                 @PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable paginacao){
 
