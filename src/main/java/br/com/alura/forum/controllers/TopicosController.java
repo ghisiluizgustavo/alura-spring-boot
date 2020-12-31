@@ -9,6 +9,7 @@ import br.com.alura.forum.repositorys.CursoRepository;
 import br.com.alura.forum.repositorys.TopicoRepository;
 import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -59,7 +60,12 @@ public class TopicosController {
         return TopicoDTO.converter(topicos);
     }
 
+    /**
+     * @CacheEvict informa ao Spring que quando esse método for chamado ele deve limpar o cache
+     */
     @PostMapping()
+    @Transactional
+    @CacheEvict(value = "listaDeTopicos", allEntries = true)
     public ResponseEntity<TopicoDTO> cadastrar(@RequestBody @Valid TopicoForm topicoForm, UriComponentsBuilder uriBuilder){
         Topico topico = topicoForm.converter(cursoRepository);
         topicoRepository.save(topico);
@@ -76,6 +82,7 @@ public class TopicosController {
 
     @DeleteMapping("/{id}")
     @Transactional
+    @CacheEvict(value = "listaDeTopicos", allEntries = true)
     public ResponseEntity<?> remover(@PathVariable Long id){
         Optional<Topico> topico = topicoRepository.findById(id);
         if (topico.isPresent()){
@@ -88,6 +95,7 @@ public class TopicosController {
 
     @PutMapping("/{id}")
     @Transactional
+    @CacheEvict(value = "listaDeTopicos", allEntries = true)
     public ResponseEntity<TopicoDTO> atualiazar(@PathVariable Long id, @RequestBody @Valid AtualizacaoTopicoForm form){
         Topico topico = form.atualizar(id, topicoRepository);
         return ResponseEntity.ok(new TopicoDTO(topico));
