@@ -9,19 +9,18 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class User implements UserDetails {
+public class Usuario implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
+	private String nome;
 	private String email;
-	private String passwordUser;
-
+	private String senha;
 	@ManyToMany(fetch = FetchType.EAGER)
-	private List<Profile> perfis = new ArrayList<>();
+	private List<Perfil> perfis = new ArrayList<>();
 
 	@Override
 	public int hashCode() {
@@ -39,7 +38,7 @@ public class User implements UserDetails {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Usuario other = (Usuario) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -56,12 +55,12 @@ public class User implements UserDetails {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String nome) {
-		this.name = nome;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getEmail() {
@@ -72,12 +71,12 @@ public class User implements UserDetails {
 		this.email = email;
 	}
 
-	public String getPasswordUser() {
-		return passwordUser;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setPasswordUser(String senha) {
-		this.passwordUser = senha;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@Override
@@ -87,7 +86,7 @@ public class User implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return this.passwordUser;
+		return this.senha;
 	}
 
 	@Override

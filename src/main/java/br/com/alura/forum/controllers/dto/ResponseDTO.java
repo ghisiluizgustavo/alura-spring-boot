@@ -1,6 +1,6 @@
 package br.com.alura.forum.controllers.dto;
 
-import br.com.alura.forum.models.Response;
+import br.com.alura.forum.models.Resposta;
 
 import java.time.LocalDateTime;
 
@@ -11,11 +11,11 @@ public class ResponseDTO {
     private final LocalDateTime createdAt;
     private final String authorName;
 
-    public ResponseDTO(Response response){
-        this.id = response.getId();
-        this.message = response.getMessage();
-        this.createdAt = response.getCreatedAt();
-        this.authorName = response.getAuthor().getName();
+    public ResponseDTO(Resposta resposta){
+        this.id = resposta.getId();
+        this.message = resposta.getMensagem();
+        this.createdAt = resposta.getDataCriacao();
+        this.authorName = resposta.getAutor().getNome();
     }
 
     public Long getId() {

@@ -1,9 +1,9 @@
 package br.com.alura.forum.repositorys;
 
-import br.com.alura.forum.models.Course;
+import br.com.alura.forum.models.Curso;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CourseRepository extends JpaRepository<Course, Long> {
+public interface CourseRepository extends JpaRepository<Curso, Long> {
 
-    Course findByNome(String nomeCurso);
+    Curso findByNome(String nomeCurso);
 }

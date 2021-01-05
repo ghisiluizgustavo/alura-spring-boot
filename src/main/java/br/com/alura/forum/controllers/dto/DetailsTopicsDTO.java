@@ -1,7 +1,7 @@
 package br.com.alura.forum.controllers.dto;
 
-import br.com.alura.forum.models.StatsTopic;
-import br.com.alura.forum.models.Topic;
+import br.com.alura.forum.models.StatusTopico;
+import br.com.alura.forum.models.Topico;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,18 +15,18 @@ public class DetailsTopicsDTO {
     private String title;
     private LocalDateTime createdAt;
     private String authorName;
-    private StatsTopic stats;
+    private StatusTopico stats;
     private List<ResponseDTO> responses;
 
-    public DetailsTopicsDTO(Topic topic) {
-        this.id = topic.getId();
-        this.title = topic.getTitle();
-        this.message = topic.getMessage();
-        this.createdAt = topic.getCreatedAt();
-        this.authorName = topic.getAuthor().getName();
-        this.stats = topic.getStats();
+    public DetailsTopicsDTO(Topico topico) {
+        this.id = topico.getId();
+        this.title = topico.getTitulo();
+        this.message = topico.getMensagem();
+        this.createdAt = topico.getDataCriacao();
+        this.authorName = topico.getAutor().getNome();
+        this.stats = topico.getStatus();
         this.responses = new ArrayList<>();
-        this.responses.addAll(topic.getResponses().stream().map(ResponseDTO::new).collect(Collectors.toList()));
+        this.responses.addAll(topico.getResponses().stream().map(ResponseDTO::new).collect(Collectors.toList()));
     }
 
     public Long getId() {
@@ -49,7 +49,7 @@ public class DetailsTopicsDTO {
         return authorName;
     }
 
-    public StatsTopic getStats() {
+    public StatusTopico getStats() {
         return stats;
     }
 

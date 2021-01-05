@@ -1,6 +1,6 @@
 package br.com.alura.forum.controllers.dto;
 
-import br.com.alura.forum.models.Topic;
+import br.com.alura.forum.models.Topico;
 import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
@@ -12,11 +12,11 @@ public class TopicDTO {
     private String title;
     private LocalDateTime createdAt;
 
-    public TopicDTO(Topic topic){
-        this.id = topic.getId();
-        this.message = topic.getMessage();
-        this.title = topic.getTitle();
-        this.createdAt = topic.getCreatedAt();
+    public TopicDTO(Topico topico){
+        this.id = topico.getId();
+        this.message = topico.getMensagem();
+        this.title = topico.getTitulo();
+        this.createdAt = topico.getDataCriacao();
     }
 
     public Long getId() {
@@ -35,7 +35,7 @@ public class TopicDTO {
         return createdAt;
     }
 
-    public static Page<TopicDTO> converter(Page<Topic> topics){
+    public static Page<TopicDTO> converter(Page<Topico> topics){
         return topics.map(TopicDTO::new);
     }
 }

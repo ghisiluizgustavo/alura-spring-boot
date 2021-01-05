@@ -1,6 +1,6 @@
 package br.com.alura.forum.config.security;
 
-import br.com.alura.forum.models.User;
+import br.com.alura.forum.models.Usuario;
 import br.com.alura.forum.repositorys.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +18,7 @@ public class AuthenticationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByEmail(s);
+        Optional<Usuario> user = userRepository.findByEmail(s);
         if(user.isPresent()){
             return user.get();
         }

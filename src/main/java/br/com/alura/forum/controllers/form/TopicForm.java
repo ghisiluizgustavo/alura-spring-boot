@@ -1,7 +1,7 @@
 package br.com.alura.forum.controllers.form;
 
-import br.com.alura.forum.models.Course;
-import br.com.alura.forum.models.Topic;
+import br.com.alura.forum.models.Curso;
+import br.com.alura.forum.models.Topico;
 import br.com.alura.forum.repositorys.CourseRepository;
 import org.hibernate.validator.constraints.Length;
 
@@ -46,8 +46,8 @@ public class TopicForm {
         this.courseName = courseName;
     }
 
-    public Topic convert(CourseRepository courseRepository) {
-        Course course = courseRepository.findByNome(courseName);
-        return new Topic(title, message, course) ;
+    public Topico convert(CourseRepository courseRepository) {
+        Curso curso = courseRepository.findByNome(courseName);
+        return new Topico(title, message, curso) ;
     }
 }

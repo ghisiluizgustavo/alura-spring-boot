@@ -6,19 +6,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Course {
+public class Curso {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
-	private String category;
+	private String nome;
+	private String categoria;
 
-	public Course(String name, String category) {
-		this.name = name;
-		this.category = category;
+	public Curso(String nome, String categoria) {
+		this.nome = nome;
+		this.categoria = categoria;
 	}
 
-	public Course() {
+	public Curso() {
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class Course {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Course other = (Course) obj;
+		Curso other = (Curso) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -54,20 +54,20 @@ public class Course {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String name) {
+		this.nome = name;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getCategoria() {
+		return categoria;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategoria(String category) {
+		this.categoria = category;
 	}
 
 }
