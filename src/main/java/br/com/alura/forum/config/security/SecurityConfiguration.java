@@ -15,18 +15,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    AutenticacaoService autenticacaoService;
+    AuthenticationService authenticationService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(autenticacaoService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers( HttpMethod.GET, "/topicos" ).permitAll()
-                .antMatchers( HttpMethod.GET,"/topicos/*" ).permitAll()
+                .antMatchers( HttpMethod.GET, "/topics" ).permitAll()
+                .antMatchers( HttpMethod.GET,"/topics/*" ).permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin();
     }

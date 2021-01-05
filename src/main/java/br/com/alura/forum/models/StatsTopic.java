@@ -1,6 +1,6 @@
 package br.com.alura.forum.models;
 
-public enum StatusTopico {
+public enum StatsTopic {
 	
 	NAO_RESPONDIDO,
 	NAO_SOLUCIONADO,
