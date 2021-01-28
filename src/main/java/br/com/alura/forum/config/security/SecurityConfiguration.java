@@ -30,11 +30,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
+//    Configurações de autenticação
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
+//    Configurações de autorização
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -49,6 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().addFilterBefore(new AuthenticationByTokenFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
     }
 
+//    Configurações de arquivos estáticos
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**",
