@@ -21,7 +21,7 @@ import javax.validation.Valid;
 public class AuthenticationController {
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     private TokenService tokenService;
